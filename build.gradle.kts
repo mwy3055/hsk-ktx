@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "mwy3055"
-version = "1.0-SNAPSHOT"
+version = "1.0-SNAPSHOT01"
 
 repositories {
     mavenCentral()
