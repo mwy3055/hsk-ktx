@@ -1,10 +1,10 @@
 plugins {
     kotlin("multiplatform") version "1.6.21"
-    "maven-publish"
+    `maven-publish`
 }
 
 group = "mwy3055"
-version = "1.0-SNAPSHOT01"
+version = "1.0-beta01"
 
 repositories {
     mavenCentral()
