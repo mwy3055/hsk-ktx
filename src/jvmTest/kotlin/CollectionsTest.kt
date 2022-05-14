@@ -1,37 +1,7 @@
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 
-class ExtensionsTest {
-
-    @Test
-    fun testStringContainsOnlyAlphabet_True() {
-        val string = "abcdef"
-        assert(string.containsOnlyAlphabet())
-    }
-
-    @Test
-    fun testStringContainsOnlyAlphabet_Number() {
-        val string = "abcd3f"
-        assertFalse(string.containsOnlyAlphabet())
-    }
-
-    @Test
-    fun testStringContainsOnlyAlphabet_SpecialCharacter() {
-        val string = "abcd#f"
-        assertFalse(string.containsOnlyAlphabet())
-    }
-
-    @Test
-    fun testStringContainsOnlyAlphabet_Null() {
-        val string: String? = null
-        assertFalse(string.containsOnlyAlphabet())
-    }
-
-    @Test
-    fun testStringContainsOnlyAlphabet_Empty() {
-        assertFalse("".containsOnlyAlphabet())
-    }
+class CollectionsTest {
 
     @Test
     fun testArrayRemoved_Exists() {
@@ -143,30 +113,5 @@ class ExtensionsTest {
         } finally {
             assert(exceptionOccur)
         }
-    }
-
-    @Test
-    fun testGcd_WithOne() {
-        testGcd(1, 10, 1)
-    }
-
-    @Test
-    fun testGcd_SameNumber() {
-        testGcd(20, 20, 20)
-    }
-
-    @Test
-    fun testGcd_PrimeNumbers() {
-        testGcd(3, 7, 1)
-    }
-
-    @Test
-    fun testGcd_NormalCase() {
-        testGcd(25, 95, 5)
-    }
-
-    private fun testGcd(num1: Int, num2: Int, expected: Int) {
-        val actual = num1.gcd(num2)
-        assertEquals(expected, actual)
     }
 }
