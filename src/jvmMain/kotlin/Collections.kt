@@ -1,5 +1,3 @@
-fun <T> Array<T>.removed(value: T) = this.filter { it != value }
-
 fun <T> Collection<T>.xor(element: T): Collection<T> {
     return if (this.contains(element)) {
         this.minus(element)
@@ -33,6 +31,16 @@ fun <T, R> Iterable<T>.zipForEach(other: Iterable<R>, block: (T, R) -> Unit) {
     this.zip(other).forEach { (thisInstance, otherInstance) -> block(thisInstance, otherInstance) }
 }
 
+fun <T, R> Iterable<T>.zipForEach(other: Array<out R>, block: (T, R) -> Unit) {
+    this.zip(other).forEach { (thisInstance, otherInstance) -> block(thisInstance, otherInstance) }
+}
+
+fun <T, R> Array<out T>.zipForEach(other: Iterable<R>, block: (T, R) -> Unit) {
+    this.zip(other).forEach { (thisInstance, otherInstance) -> block(thisInstance, otherInstance) }
+}
+
 fun <T, R> Array<out T>.zipForEach(other: Array<out R>, block: (T, R) -> Unit) {
     this.zip(other).forEach { (thisInstance, otherInstance) -> block(thisInstance, otherInstance) }
 }
+
+fun <T> Array<T>.removed(value: T) = this.filter { it != value }
