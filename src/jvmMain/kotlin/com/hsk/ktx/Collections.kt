@@ -1,3 +1,5 @@
+package com.hsk.ktx
+
 fun <T> Collection<T>.xor(element: T): Collection<T> {
     return if (this.contains(element)) {
         this.minus(element)

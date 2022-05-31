@@ -1,3 +1,5 @@
+package com.hsk.ktx
+
 import kotlin.math.abs
 
 fun Int.gcd(num: Int): Int {

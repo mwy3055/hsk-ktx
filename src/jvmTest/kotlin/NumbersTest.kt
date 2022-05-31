@@ -1,3 +1,6 @@
+import com.hsk.ktx.Delta
+import com.hsk.ktx.equalsDelta
+import com.hsk.ktx.gcd
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
