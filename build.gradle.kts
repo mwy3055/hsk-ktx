@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.6.21"
+    kotlin("multiplatform") version "1.7.0"
     `maven-publish`
     jacoco
     java
@@ -13,7 +13,11 @@ repositories {
 }
 
 dependencies {
-    commonTestImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    commonMainImplementation("com.google.code.gson:gson:2.9.0")
+
+    commonTestImplementation(platform("org.junit:junit-bom:5.8.2"))
+    commonTestImplementation("org.junit.jupiter:junit-jupiter")
+    commonTestImplementation("org.assertj:assertj-core:3.23.1")
 }
 
 kotlin {
