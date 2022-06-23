@@ -13,3 +13,5 @@ inline fun <reified T> Gson.fromJson(json: String) =
 inline fun <reified T> List<T>.toJson(): String {
     return Gson().toJson(this, getTypeFromToken<List<T>>())
 }
+
+inline fun <reified T> String.jsonToList(): List<T> = Gson().fromJson<List<T>>(this)
