@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "mwy3055"
-version = "1.0-beta04"
+version = "1.0-beta05"
 
 repositories {
     mavenCentral()
