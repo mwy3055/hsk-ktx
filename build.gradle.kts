@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.7.0"
+    kotlin("multiplatform") version "1.7.10"
     `maven-publish`
     jacoco
     java
@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     commonMainImplementation("com.google.code.gson:gson:2.9.0")
+    commonMainImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     commonTestImplementation(platform("org.junit:junit-bom:5.8.2"))
     commonTestImplementation("org.junit.jupiter:junit-jupiter")
