@@ -16,7 +16,7 @@ data class Date(
     val year: Int,
     val month: Int,
     val dayOfMonth: Int,
-) {
+) : Comparable<Date> {
     val dayOfWeek: Week
 
     init {
@@ -30,6 +30,7 @@ data class Date(
         val h = (q + ((13 * (m + 1)) / 5) + k + (k / 4) + (j / 4) - 2 * j) % 7
         dayOfWeek = Week.values()[(h + 6) % 7]
     }
+
 
     fun plusDays(days: Int): Date {
         var newYear = year
@@ -103,5 +104,14 @@ data class Date(
 
         val MAX = Date(9999, 12, 31)
         val MIN = Date(1, 1, 1)
+    }
+
+    override fun compareTo(other: Date): Int {
+        return when {
+            year != other.year -> year.compareTo(other.year)
+            month != other.month -> month.compareTo(other.month)
+            dayOfMonth != other.dayOfMonth -> dayOfMonth.compareTo(other.dayOfMonth)
+            else -> 0
+        }
     }
 }

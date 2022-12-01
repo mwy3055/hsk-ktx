@@ -112,4 +112,32 @@ class DateTest {
             it.year == now.year && it.month == now.monthValue && it.dayOfMonth == now.dayOfMonth
         }
     }
+
+    @Test
+    fun compareTest_smaller1() {
+        assertIsLessThan(
+            small = Date(2022, 12, 1),
+            large = Date(2022, 12, 20)
+        )
+    }
+
+    @Test
+    fun compareTest_smaller2() {
+        assertIsLessThan(
+            small = Date(2022, 11, 20),
+            large = Date(2022, 12, 20)
+        )
+    }
+
+    @Test
+    fun compareTest_smaller3() {
+        assertIsLessThan(
+            small = Date(2021, 10, 12),
+            large = Date(2022, 2, 2)
+        )
+    }
+
+    private fun assertIsLessThan(small: Date, large: Date) {
+        assertThat(small).isLessThan(large)
+    }
 }
