@@ -1,6 +1,6 @@
 package com.hsk.ktx.date
 
-data class MonthDate(
+data class MonthDay(
     val month: Int,
     val dayOfMonth: Int,
 )
