@@ -2,7 +2,7 @@ package com.hsk.ktx
 
 import java.util.*
 
-enum class Week {
+enum class DayOfWeek {
     SUNDAY,
     MONDAY,
     TUESDAY,
@@ -17,7 +17,7 @@ data class Date(
     val month: Int,
     val dayOfMonth: Int,
 ) : Comparable<Date> {
-    val dayOfWeek: Week
+    val dayOfWeek: DayOfWeek
 
     init {
         // Zeller's Congruence
@@ -28,7 +28,7 @@ data class Date(
         }
         // h = 0: SATURDAY
         val h = (q + ((13 * (m + 1)) / 5) + k + (k / 4) + (j / 4) - 2 * j) % 7
-        dayOfWeek = Week.values()[(h + 6) % 7]
+        dayOfWeek = DayOfWeek.values()[(h + 6) % 7]
     }
 
 
@@ -59,6 +59,34 @@ data class Date(
                 newMonth = 12
                 newYear--
             }
+        }
+        return Date(newYear, newMonth, newDay)
+    }
+
+    fun plusMonths(months: Int): Date {
+        var newYear = year
+        var newMonth = month + months
+        var newDay = dayOfMonth
+        while (newMonth > 12) {
+            newYear++
+            newMonth -= 12
+        }
+        if (newDay > maxDayOfMonth(newYear, newMonth)) {
+            newDay = maxDayOfMonth(newYear, newMonth)
+        }
+        return Date(newYear, newMonth, newDay)
+    }
+
+    fun minusMonths(months: Int): Date {
+        var newYear = year
+        var newMonth = month - months
+        var newDay = dayOfMonth
+        while (newMonth <= 0) {
+            newYear--
+            newMonth += 12
+        }
+        if (newDay > maxDayOfMonth(newYear, newMonth)) {
+            newDay = maxDayOfMonth(newYear, newMonth)
         }
         return Date(newYear, newMonth, newDay)
     }

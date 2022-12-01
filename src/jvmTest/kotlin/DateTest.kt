@@ -7,11 +7,11 @@ import java.util.*
 class DateTest {
     data class TestData(
         val from: Date,
-        val days: Int,
+        val diff: Int,
         val expected: Date
     )
 
-    private val testDates = listOf(
+    private val daysTestData = listOf(
         TestData(Date(2022, 11, 30), 10, Date(2022, 12, 10)),
         TestData(Date(2022, 2, 1), 302, Date(2022, 11, 30)),
         TestData(Date(2022, 11, 30), 50, Date(2023, 1, 19)),
@@ -48,11 +48,6 @@ class DateTest {
         }
     }
 
-    @Test
-    fun test() {
-        println(Date(596, 3, 10).dayOfWeek)
-    }
-
     private fun getRandomYmd(): List<Int> {
         return Random().let {
             val year = it.nextInt(1600, 9999)
@@ -64,14 +59,14 @@ class DateTest {
 
     @Test
     fun plusDaysTest() {
-        testDates.forEach { (from, days, expected) ->
+        daysTestData.forEach { (from, days, expected) ->
             assertThat(from.plusDays(days)).isEqualTo(expected)
         }
     }
 
     @Test
     fun minusDaysTest() {
-        testDates.forEach { (expected, days, from) ->
+        daysTestData.forEach { (expected, days, from) ->
             assertThat(from.minusDays(days)).isEqualTo(expected)
         }
     }
@@ -139,5 +134,69 @@ class DateTest {
 
     private fun assertIsLessThan(small: Date, large: Date) {
         assertThat(small).isLessThan(large)
+    }
+
+    private val plusMonthsTestData = listOf(
+        TestData(Date(9522, 7, 4), 7, Date(9523, 2, 4)),
+        TestData(Date(4898, 7, 26), 52, Date(4902, 11, 26)),
+        TestData(Date(3665, 9, 18), 17, Date(3667, 2, 18)),
+        TestData(Date(5608, 6, 10), 10, Date(5609, 4, 10)),
+        TestData(Date(7997, 2, 17), 18, Date(7998, 8, 17)),
+        TestData(Date(2585, 4, 11), 12, Date(2586, 4, 11)),
+        TestData(Date(5802, 12, 24), 93, Date(5810, 9, 24)),
+        TestData(Date(3384, 12, 26), 28, Date(3387, 4, 26)),
+        TestData(Date(9393, 2, 5), 52, Date(9397, 6, 5)),
+        TestData(Date(6179, 3, 16), 80, Date(6185, 11, 16)),
+        TestData(Date(9482, 9, 1), 15, Date(9483, 12, 1)),
+        TestData(Date(7792, 5, 6), 96, Date(7800, 5, 6)),
+        TestData(Date(2360, 12, 12), 12, Date(2361, 12, 12)),
+        TestData(Date(6567, 11, 8), 52, Date(6572, 3, 8)),
+        TestData(Date(5107, 6, 1), 44, Date(5111, 2, 1)),
+        TestData(Date(4066, 8, 14), 86, Date(4073, 10, 14)),
+        TestData(Date(5258, 7, 25), 44, Date(5262, 3, 25)),
+        TestData(Date(4332, 3, 3), 50, Date(4336, 5, 3)),
+        TestData(Date(2051, 12, 29), 35, Date(2054, 11, 29)),
+        TestData(Date(7417, 4, 24), 91, Date(7424, 11, 24)),
+        TestData(Date(2022, 10, 31), 1, Date(2022, 11, 30))
+    )
+
+    @Test
+    fun plusMonthsTest() {
+        plusMonthsTestData.forEach { (from, months, expected) ->
+            assertThat(from.plusMonths(months)).isEqualTo(expected)
+        }
+    }
+
+    private val minusMonthsTestData = listOf(
+        TestData(Date(9522, 7, 4), 7, Date(9523, 2, 4)),
+        TestData(Date(4898, 7, 26), 52, Date(4902, 11, 26)),
+        TestData(Date(3665, 9, 18), 17, Date(3667, 2, 18)),
+        TestData(Date(5608, 6, 10), 10, Date(5609, 4, 10)),
+        TestData(Date(7997, 2, 17), 18, Date(7998, 8, 17)),
+        TestData(Date(2585, 4, 11), 12, Date(2586, 4, 11)),
+        TestData(Date(5802, 12, 24), 93, Date(5810, 9, 24)),
+        TestData(Date(3384, 12, 26), 28, Date(3387, 4, 26)),
+        TestData(Date(9393, 2, 5), 52, Date(9397, 6, 5)),
+        TestData(Date(6179, 3, 16), 80, Date(6185, 11, 16)),
+        TestData(Date(9482, 9, 1), 15, Date(9483, 12, 1)),
+        TestData(Date(7792, 5, 6), 96, Date(7800, 5, 6)),
+        TestData(Date(2360, 12, 12), 12, Date(2361, 12, 12)),
+        TestData(Date(6567, 11, 8), 52, Date(6572, 3, 8)),
+        TestData(Date(5107, 6, 1), 44, Date(5111, 2, 1)),
+        TestData(Date(4066, 8, 14), 86, Date(4073, 10, 14)),
+        TestData(Date(5258, 7, 25), 44, Date(5262, 3, 25)),
+        TestData(Date(4332, 3, 3), 50, Date(4336, 5, 3)),
+        TestData(Date(2051, 12, 29), 35, Date(2054, 11, 29)),
+        TestData(Date(7417, 4, 24), 91, Date(7424, 11, 24)),
+        TestData(Date(2022, 10, 30), 1, Date(2022, 11, 30)),
+        TestData(Date(2021, 12, 31), 3, Date(2022, 3, 31)),
+        TestData(Date(2021, 12, 31), 15, Date(2023, 3, 31)),
+    )
+
+    @Test
+    fun minusMonthsTest() {
+        minusMonthsTestData.forEach { (expected, months, from) ->
+            assertThat(from.minusMonths(months)).isEqualTo(expected)
+        }
     }
 }
