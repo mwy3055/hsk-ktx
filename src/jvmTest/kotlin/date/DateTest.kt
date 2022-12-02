@@ -4,6 +4,9 @@ import com.hsk.ktx.date.Date
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneOffset
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 class DateTest {
@@ -50,11 +53,15 @@ class DateTest {
         }
     }
 
-    private fun getRandomYmd(): List<Int> {
+    private fun getRandomYmd(
+        yearRange: IntRange = 1600..9999,
+        monthRange: IntRange = 1..12,
+        dayRange: IntRange = 1..31
+    ): List<Int> {
         return Random().let {
-            val year = it.nextInt(1600, 9999)
-            val month = it.nextInt(1, 12)
-            val day = it.nextInt(1, Date.maxDayOfMonth(year, month))
+            val year = it.nextInt(yearRange.first, yearRange.last)
+            val month = it.nextInt(monthRange.first, monthRange.last)
+            val day = it.nextInt(1, Date.maxDayOfMonth(year, month)).coerceIn(dayRange)
             listOf(year, month, day)
         }
     }
@@ -199,6 +206,40 @@ class DateTest {
     fun minusMonthsTest() {
         minusMonthsTestData.forEach { (expected, months, from) ->
             assertThat(from.minusMonths(months)).isEqualTo(expected)
+        }
+    }
+
+    @Test
+    fun toEpochSecondTest_fixed() {
+        val (year, month, day) = listOf(1971, 1, 1)
+        val date = Date(year, month, day)
+        val localDate = LocalDate.of(year, month, day)
+        assertThat(date.toEpochSecond()).isEqualTo(localDate.toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC))
+    }
+
+    @Test
+    fun toEpochSecondTest_random() {
+        repeat(10000) {
+            val (year, month, day) = getRandomYmd(yearRange = 1970..2100)
+            val date = Date(year, month, day)
+            val localDate = LocalDate.of(year, month, day)
+            println(localDate)
+            assertThat(date.toEpochSecond())
+                .isEqualTo(localDate.toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC))
+        }
+    }
+
+    @Test
+    fun ofEpochDayTest_random() {
+        repeat(100000) {
+            val epoch = Random().nextLong(10000000)
+            val date = Date.ofEpochDay(epoch)
+            val localDate = LocalDate.EPOCH.plus(epoch / Date.secondsOfDay, ChronoUnit.DAYS)
+            assertThat(date).matches {
+                it.year == localDate.year
+                        && it.month == localDate.monthValue
+                        && it.dayOfMonth == localDate.dayOfMonth
+            }
         }
     }
 }

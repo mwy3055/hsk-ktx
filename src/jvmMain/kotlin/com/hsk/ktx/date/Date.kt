@@ -91,6 +91,29 @@ data class Date(
         return Date(newYear, newMonth, newDay)
     }
 
+    /**
+     * Converts this date to the number of seconds from the epoch of 1970-01-01.
+     */
+    fun toEpochSecond(): Long {
+        if (year < 1970) {
+            return -1L
+        }
+        var epoch = 0L
+
+        var year = 1970
+        var month = 1
+        while (year < this.year || (year == this.year && month < this.month)) {
+            epoch += maxDayOfMonth(year, month) * secondsOfDay
+            month++
+            if (month > 12) {
+                year++
+                month = 1
+            }
+        }
+        epoch += (this.dayOfMonth - 1) * secondsOfDay
+        return epoch
+    }
+
     companion object {
         fun now(): Date {
             val t = Calendar.getInstance().apply {
@@ -130,6 +153,13 @@ data class Date(
             12 to 31
         )
 
+        fun ofEpochDay(epoch: Long): Date {
+            require(epoch >= 0) { "epochSeconds must be non-negative" }
+            val day = (epoch / secondsOfDay).toInt()
+            return Date(1970, 1, 1).plusDays(day)
+        }
+
+        const val secondsOfDay = 60 * 60 * 24L
         val MAX = Date(9999, 12, 31)
         val MIN = Date(1, 1, 1)
     }
