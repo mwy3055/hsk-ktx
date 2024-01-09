@@ -67,6 +67,22 @@ class DateTest {
     }
 
     @Test
+    fun isValidDateTest_Valid() {
+        assertThat(Date(2024, 1, 9).isValid()).isTrue()
+        assertThat(Date(2024, 1, 31).isValid()).isTrue()
+        assertThat(Date(2024, 2, 29).isValid()).isTrue()
+        assertThat(Date(2023, 12, 25).isValid()).isTrue()
+        assertThat(Date(2024, 3, 8).isValid()).isTrue()
+    }
+
+    @Test
+    fun isValidDateTest_Invalid() {
+        assertThat(Date(2024, 1, 32).isValid()).isFalse()
+        assertThat(Date(2024, 13, 20).isValid()).isFalse()
+        assertThat(Date(2024, 0, 7).isValid()).isFalse()
+    }
+
+    @Test
     fun plusDaysTest() {
         daysTestData.forEach { (from, days, expected) ->
             assertThat(from.plusDays(days)).isEqualTo(expected)

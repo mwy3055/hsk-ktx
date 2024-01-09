@@ -114,6 +114,11 @@ data class Date(
         return epoch
     }
 
+    fun isValid(): Boolean {
+        if (month !in 1..12) return false
+        return dayOfMonth in 1..maxDayOfMonth(year, month)
+    }
+
     companion object {
         fun now(): Date {
             val t = Calendar.getInstance().apply {
