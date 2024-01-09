@@ -2,14 +2,14 @@ package com.hsk.ktx.date
 
 import java.util.*
 
-enum class DayOfWeek {
-    SUNDAY,
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY,
+enum class DayOfWeek(val shortName: String, val fullName: String) {
+    SUNDAY("일", "일요일"),
+    MONDAY("월", "월요일"),
+    TUESDAY("화", "화요일"),
+    WEDNESDAY("수", "수요일"),
+    THURSDAY("목", "목요일"),
+    FRIDAY("금", "금요일"),
+    SATURDAY("토", "토요일"),
 }
 
 data class Date(
