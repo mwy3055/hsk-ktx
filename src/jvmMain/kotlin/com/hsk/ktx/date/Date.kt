@@ -1,5 +1,6 @@
 package com.hsk.ktx.date
 
+import java.io.Serializable
 import java.util.*
 
 enum class DayOfWeek(val shortName: String, val fullName: String) {
@@ -16,7 +17,7 @@ data class Date(
     val year: Int,
     val month: Int,
     val dayOfMonth: Int,
-) : Comparable<Date> {
+) : Comparable<Date>, Serializable {
     val dayOfWeek: DayOfWeek
 
     init {
